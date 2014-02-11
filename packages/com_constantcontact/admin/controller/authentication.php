@@ -47,10 +47,12 @@ class ConstantcontactControllerAuthentication extends ConstantcontactControllerD
      * @since   1.1
      */
     public function execute($task)
-    {
+    {	
+		if($task == "create") { $this->create();}
+		
         if (!$this->modelAuthentication->isAuthenticated()) {
             $view = $this->input->getCmd('view');
-
+			
             if ((!empty($task) && $task != 'validate')) {
                 $this->setRedirect('index.php?option=com_constantcontact&view=authentication');
                 $this->redirect();
@@ -69,6 +71,7 @@ class ConstantcontactControllerAuthentication extends ConstantcontactControllerD
      */
     public function create()
     {
+		
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         $data = array(
@@ -80,7 +83,8 @@ class ConstantcontactControllerAuthentication extends ConstantcontactControllerD
             'phone' => $this->input->getString('phone'),
             'country' => $this->input->getString('country'),
             'state' => $this->input->getString('state')
-        );
+        );		
+		
 
         if (!$this->getModel('signup')->register($data)) {
             JFactory::getApplication()->enqueueMessage(JText::_('COM_CONSTANTCONTACT_VIEW_SINGUP_ERROR'));
