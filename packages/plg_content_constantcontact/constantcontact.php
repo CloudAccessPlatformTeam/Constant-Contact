@@ -37,10 +37,11 @@ class plgContentConstantcontact extends JPlugin
      * @param	bool		If the content is just about to be created
      * @since	1.1
      */
-    public function onContentAfterSave($context, &$table, $isNew)
+    public function onContentAfterSave($context, $table, $isNew)
     {
+		
         if ( $context == "com_content.article" ) {
-            $this->createCompaign($table, $isNew);
+			 $this->createCompaign($table, $isNew);
         }
 	}
 
